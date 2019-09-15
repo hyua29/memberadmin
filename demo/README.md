@@ -9,4 +9,4 @@
 
 
 #### Known Issues
-1. Encountered ```java.lang.NumberFormatException: For input string: ""``` when accessing swagger UI
+1. Encountered ```java.lang.NumberFormatException: For input string: ""``` when accessing swagger UI, but the UI is working.

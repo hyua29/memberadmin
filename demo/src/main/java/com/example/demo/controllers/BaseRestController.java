@@ -14,6 +14,12 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Provide a generic Crud controller
+ * @param <T> Database model
+ * @param <S> Subclass of CrudRepository
+ * @param <V> Type of model id e.g. String, Integer, Long
+ */
 public abstract class BaseRestController<T extends IsDbModel<V> & Mergeable, S extends CrudRepository<T, V>, V> {
 
     protected S repo;
@@ -62,7 +68,7 @@ public abstract class BaseRestController<T extends IsDbModel<V> & Mergeable, S e
 
     @PatchMapping("/{id}")
     public ResponseEntity<T> partialUpdate(@ApiParam(value = "Model ID", required = true) @PathVariable V id,
-                                           @ApiParam(value = "Update partial2d model", required = true) @Valid @RequestBody T t) {
+                                           @ApiParam(value = "Update partial model", required = true) @Valid @RequestBody T t) {
         Optional<T> model = repo.findById(id);
         if (!model.isPresent()) return ResponseEntity.notFound().build();
 
