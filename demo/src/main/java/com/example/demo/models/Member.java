@@ -1,5 +1,7 @@
 package com.example.demo.models;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,11 +10,14 @@ public class Member implements IsDbModel<Long>, Mergeable {
 
     @Id
     @GeneratedValue
+    @ApiModelProperty(example = "0")
     private Long id;
 
+    @ApiModelProperty(example = "Aaron")
     @Column(name = "first_name", length = 100)
     private String firstName;
 
+    @ApiModelProperty(example = "Hank")
     @Column(name = "last_name", length = 100)
     private String lastName;
 

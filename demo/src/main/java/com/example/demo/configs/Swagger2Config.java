@@ -13,14 +13,20 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class Swagger2Config {
+    /**
+     * Scan controller package; Pick up only APIs with a prefix of /api
+     */
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.example.demo.controllers"))
                 .paths(PathSelectors.regex("/api.*"))
                 .build().apiInfo(apiEndPointsInfo());
     }
 
+    /**
+     * Meta data for Swagger UI
+     */
     private ApiInfo apiEndPointsInfo() {
         return new ApiInfoBuilder().title("Spring Boot REST API")
                 .description("Club Management REST API")
