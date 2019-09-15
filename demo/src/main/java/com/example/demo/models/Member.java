@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Member")
-public class Member implements IsDbModel<Long> {
+public class Member implements IsDbModel<Long>, Mergeable {
 
     @Id
     @GeneratedValue
@@ -36,6 +36,8 @@ public class Member implements IsDbModel<Long> {
 
     @Override
     public void mergeWith(Object src) {
+        assert !(src instanceof Member): "Cannot merge objects of different classes";
+
         Member srcMember = (Member) src;
         if (srcMember.firstName != null) this.firstName = srcMember.firstName;
         if (srcMember.lastName != null) this.lastName = srcMember.lastName;
