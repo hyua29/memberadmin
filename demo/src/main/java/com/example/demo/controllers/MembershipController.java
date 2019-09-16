@@ -1,6 +1,5 @@
 package com.example.demo.controllers;
 
-//import com.example.demo.controllers.MembershipRequestBody;
 import com.example.demo.models.Club;
 import com.example.demo.models.Member;
 import com.example.demo.repos.ClubRepository;
@@ -29,6 +28,7 @@ public class MembershipController {
     @PostMapping("/")
     public ResponseEntity<String> addMembership(
             @ApiParam(value = "Member ID", required = true) @Valid @RequestBody MembershipRequestBody requestBody) {
+//        if (!requestBody.isValidIds()) return ResponseEntity.badRequest().build();
         Optional<Member> memberO = memberRepository.findById(requestBody.getMember_id());
         Optional<Club> clubO = clubRepository.findById(requestBody.getClub_id());
 
@@ -44,6 +44,7 @@ public class MembershipController {
     @DeleteMapping("/")
     public ResponseEntity<String> removeMembership(
             @ApiParam(value = "Member ID", required = true) @Valid @RequestBody MembershipRequestBody requestBody) {
+//        if (!requestBody.isValidIds()) return ResponseEntity.badRequest().build();
         Optional<Club> clubO = clubRepository.findById(requestBody.getClub_id());
         Optional<Member> memberO = memberRepository.findById(requestBody.getMember_id());
 
@@ -52,8 +53,7 @@ public class MembershipController {
         Club c = clubO.get();
         c.getMemberSet().remove(memberO.get()); // remove membership
         clubRepository.save(c);
-        
+
         return ResponseEntity.ok("Membership deleted");
     }
-
 }

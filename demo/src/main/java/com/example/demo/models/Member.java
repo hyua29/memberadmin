@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,14 +15,12 @@ public class Member implements IsDbModel<Long>, Mergeable {
 
     @Id
     @GeneratedValue
-    @ApiModelProperty(example = "0")
+    @NotNull(message = "id must not be null")
     private Long id;
 
-    @ApiModelProperty(example = "Aaron")
     @Column(name = "first_name", length = 100)
     private String firstName;
 
-    @ApiModelProperty(example = "Hank")
     @Column(name = "last_name", length = 100)
     private String lastName;
 

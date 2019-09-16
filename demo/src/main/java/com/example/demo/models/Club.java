@@ -4,6 +4,7 @@ package com.example.demo.models;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,10 +13,9 @@ import java.util.Set;
 public class Club implements IsDbModel<Long>, Mergeable {
     @Id
     @GeneratedValue
-    @ApiModelProperty(example = "0")
+    @NotNull(message = "id must not be null")
     private Long id;
 
-    @ApiModelProperty(example = "Club A")
     @Column(name = "name")
     private String name;
 
