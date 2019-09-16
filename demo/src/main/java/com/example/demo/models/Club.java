@@ -1,8 +1,11 @@
 package com.example.demo.models;
 
+//import com.example.demo.models.membership.Membership;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "Club")
@@ -15,6 +18,13 @@ public class Club implements IsDbModel<Long>, Mergeable {
     @ApiModelProperty(example = "Club A")
     @Column(name = "name")
     private String name;
+
+    @ManyToMany
+    @JoinTable(
+        name = "Membership",
+        joinColumns = @JoinColumn(name = "member_id"),
+        inverseJoinColumns = @JoinColumn(name = "club_id"))
+    private Set<Member> memberSet = new HashSet<>();
 
     public Club() {
     }
@@ -37,6 +47,14 @@ public class Club implements IsDbModel<Long>, Mergeable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Member> getMemberSet() {
+        return memberSet;
+    }
+
+    public void setMemberSet(Set<Member> memberSet) {
+        this.memberSet = memberSet;
     }
 
     @Override

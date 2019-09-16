@@ -1,8 +1,12 @@
 package com.example.demo.models;
 
+//import com.example.demo.models.membership.Membership;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "Member")
@@ -20,6 +24,10 @@ public class Member implements IsDbModel<Long>, Mergeable {
     @ApiModelProperty(example = "Hank")
     @Column(name = "last_name", length = 100)
     private String lastName;
+
+    @ManyToMany(mappedBy = "memberSet")
+    @JsonIgnore
+    private Set<Club> clubSet = new HashSet<>();
 
     public Member() {
     }
@@ -62,6 +70,14 @@ public class Member implements IsDbModel<Long>, Mergeable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Set<Club> getClubSet() {
+        return clubSet;
+    }
+
+    public void setClubSet(Set<Club> clubSet) {
+        this.clubSet = clubSet;
     }
 
     @Override

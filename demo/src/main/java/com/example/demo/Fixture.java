@@ -2,6 +2,7 @@ package com.example.demo;
 
 import com.example.demo.models.Club;
 import com.example.demo.models.Member;
+//import com.example.demo.models.membership.Membership;
 import com.example.demo.repos.ClubRepository;
 import com.example.demo.repos.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +42,17 @@ public class Fixture {
         memberList.add(new Member("Crimmins", "Barry"));
         memberRepository.saveAll(memberList);
 
+        /* init a list of clubs */
         List<Club> clubList = new ArrayList<>();
         clubList.add(new Club("Club A"));
         clubList.add(new Club("Club C"));
         clubRepository.saveAll(clubList);
 
+        /* first member will join the first club */
+        Club c = clubList.get(0);
+        c.getMemberSet().add(memberList.get(0));
+        c.getMemberSet().add(memberList.get(0));
+        clubRepository.save(c);
         this.isDbInitialized = true;
         return true;
     }
