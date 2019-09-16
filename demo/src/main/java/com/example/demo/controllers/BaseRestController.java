@@ -36,15 +36,15 @@ public abstract class BaseRestController<T extends IsDbModel<V> & Mergeable, S e
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> findById(@ApiParam(value = "Model ID", required = true) @PathVariable V id) {
+    public ResponseEntity<T> findById(@ApiParam(value = "Model ID", required = true) @PathVariable V id) {
         Optional<T> model = repo.findById(id);
-        if (!model.isPresent()) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Model not found");
+        if (!model.isPresent()) return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok(model.get());
     }
 
     @PostMapping("/")
-    public ResponseEntity<Object> create(@ApiParam(value = "Create model", required = true) @Valid @RequestBody T t) {
+    public ResponseEntity<T> create(@ApiParam(value = "Create model", required = true) @Valid @RequestBody T t) {
         t.setId(null);  // id should be handled by the server
         return ResponseEntity.ok(repo.save(t));
     }
@@ -59,10 +59,10 @@ public abstract class BaseRestController<T extends IsDbModel<V> & Mergeable, S e
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> update(@ApiParam(value = "Model ID", required = true) @PathVariable V id,
+    public ResponseEntity<T> update(@ApiParam(value = "Model ID", required = true) @PathVariable V id,
                                     @ApiParam(value = "Update model", required = true) @Valid @RequestBody T t) {
         Optional<T> model = repo.findById(id);
-        if (!model.isPresent()) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Model not found");
+        if (!model.isPresent()) return ResponseEntity.notFound().build();
 
         t.setId(id);
         T updatedModel = repo.save(t);
@@ -70,10 +70,10 @@ public abstract class BaseRestController<T extends IsDbModel<V> & Mergeable, S e
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Object> partialUpdate(@ApiParam(value = "Model ID", required = true) @PathVariable V id,
+    public ResponseEntity<T> partialUpdate(@ApiParam(value = "Model ID", required = true) @PathVariable V id,
                                            @ApiParam(value = "Update partial model", required = true) @Valid @RequestBody T t) {
         Optional<T> model = repo.findById(id);
-        if (!model.isPresent()) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Model not found");
+        if (!model.isPresent()) return ResponseEntity.notFound().build();
 
         T existingModel = model.get();
         existingModel.mergeWith(t);

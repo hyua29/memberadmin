@@ -28,7 +28,6 @@ public class MembershipController {
     @PostMapping("/")
     public ResponseEntity<String> addMembership(
             @ApiParam(value = "Member ID", required = true) @Valid @RequestBody MembershipRequestBody requestBody) {
-//        if (!requestBody.isValidIds()) return ResponseEntity.badRequest().build();
         Optional<Member> memberO = memberRepository.findById(requestBody.getMember_id());
         Optional<Club> clubO = clubRepository.findById(requestBody.getClub_id());
 
@@ -44,7 +43,6 @@ public class MembershipController {
     @DeleteMapping("/")
     public ResponseEntity<String> removeMembership(
             @ApiParam(value = "Member ID", required = true) @Valid @RequestBody MembershipRequestBody requestBody) {
-//        if (!requestBody.isValidIds()) return ResponseEntity.badRequest().build();
         Optional<Club> clubO = clubRepository.findById(requestBody.getClub_id());
         Optional<Member> memberO = memberRepository.findById(requestBody.getMember_id());
 

@@ -1,8 +1,5 @@
 package com.example.demo.models;
 
-//import com.example.demo.models.membership.Membership;
-import io.swagger.annotations.ApiModelProperty;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
@@ -63,5 +60,14 @@ public class Club implements IsDbModel<Long>, Mergeable {
 
         Club srcClub = (Club) src;
         if (srcClub.name != null) this.name = srcClub.name;
+    }
+
+    @Override
+    public String toString() {
+        return "Club{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", memberSet=" + memberSet +
+                '}';
     }
 }

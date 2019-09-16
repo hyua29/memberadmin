@@ -1,14 +1,15 @@
 package com.example.demo.models;
 
-//import com.example.demo.models.membership.Membership;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * @see <a href="https://www.baeldung.com/jpa-many-to-many">https://www.baeldung.com/jpa-many-to-many</a>
+ */
 @Entity
 @Table(name = "Member")
 public class Member implements IsDbModel<Long>, Mergeable {
