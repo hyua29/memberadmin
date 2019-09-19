@@ -5,11 +5,12 @@ This project is a Restful api service. The data management UI is provided by swa
 #### Start project
 1. Install dependency: ```mvn clean install```
 2. Start application: ```mvn spring-boot:run```
+3. Test API availability (Tests can only be run after launching the application) ```mvn test```
 
 
 #### UI
 1. Swagger UI ```http://localhost:8080/swagger-ui.html```
-2. In-memory database console ```http://localhost:8080/h2-console```
+2. In-memory database console (username: sa; password: sa) ```http://localhost:8080/h2-console```
 3. Application admin: ``` http://localhost:8080/admin```
 
 #### Known Issues

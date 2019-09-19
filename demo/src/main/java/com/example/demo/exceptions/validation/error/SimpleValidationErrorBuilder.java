@@ -8,10 +8,10 @@ import org.springframework.validation.ObjectError;
  */
 public class SimpleValidationErrorBuilder implements ValidationErrorBuilder {
     public ValidationErrorMessage fromBindingErrors(Errors errors) {
-        ValidationErrorMessage error = new ValidationErrorMessage("Validation failed. " + errors.getErrorCount() + " error(s)");
+        ValidationErrorMessage validationErrorMessage = new ValidationErrorMessage("Validation failed. " + errors.getErrorCount() + " error(s)");
         for (ObjectError objectError : errors.getAllErrors()) {
-            error.addValidationError(objectError.getDefaultMessage());
+            validationErrorMessage.addValidationError(objectError.getDefaultMessage());
         }
-        return error;
+        return validationErrorMessage;
     }
 }
