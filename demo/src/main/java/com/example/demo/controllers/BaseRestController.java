@@ -60,11 +60,11 @@ public abstract class BaseRestController<T extends IsDbModel<V> & Mergeable, S e
 
     @PutMapping("/{id}")
     public ResponseEntity<T> update(@ApiParam(value = "Model ID", required = true) @PathVariable V id,
-                                    @ApiParam(value = "Update model", required = true) @Valid @RequestBody T t) {
+                                    @ApiParam(value = "Update model", required = true) @RequestBody T t) {
         Optional<T> model = repo.findById(id);
         if (!model.isPresent()) return ResponseEntity.notFound().build();
 
-        t.setId(id);
+        t.setId(id);  // id should be the same as path variable
         T updatedModel = repo.save(t);
         return ResponseEntity.ok().body(updatedModel);
     }
