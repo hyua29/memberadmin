@@ -2,7 +2,7 @@ package com.example.demo.configs;
 
 
 import com.example.demo.exceptions.validation.error.ValidationErrorBuilder;
-import com.example.demo.exceptions.validation.error.SimpleValidationErrorBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  */
 @ControllerAdvice(annotations = RestController.class)
 public class GenericResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
-    private ValidationErrorBuilder validationErrorBuilder = new SimpleValidationErrorBuilder();
+    private ValidationErrorBuilder validationErrorBuilder;
+
+    @Autowired
+    public GenericResponseEntityExceptionHandler(ValidationErrorBuilder simpleValidationErrorBuilder) {
+        this.validationErrorBuilder = simpleValidationErrorBuilder;
+    }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception, HttpHeaders headers, HttpStatus status, WebRequest request) {
