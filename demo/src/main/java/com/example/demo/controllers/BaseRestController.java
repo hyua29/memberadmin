@@ -44,7 +44,7 @@ public abstract class BaseRestController<T extends IsDbModel<V> & Mergeable, S e
     }
 
     @PostMapping("/")
-    public ResponseEntity<T> create(@ApiParam(value = "Create model", required = true) @Valid @RequestBody T t) {
+    public ResponseEntity<T> create(@ApiParam(value = "Create model", required = true) @RequestBody T t) {
         t.setId(null);  // id should be handled by the server
         return ResponseEntity.ok(repo.save(t));
     }
