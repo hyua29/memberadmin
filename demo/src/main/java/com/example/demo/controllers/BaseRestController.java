@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -71,10 +72,9 @@ public abstract class BaseRestController<T extends IsDbModel<V> & Mergeable, S e
 
     @PatchMapping("/{id}")
     public ResponseEntity<T> partialUpdate(@ApiParam(value = "Model ID", required = true) @PathVariable V id,
-                                           @ApiParam(value = "Update partial model", required = true) @Valid @RequestBody T t) {
+                                           @ApiParam(value = "Update partial model", required = true) @RequestBody T t) {
         Optional<T> model = repo.findById(id);
         if (!model.isPresent()) return ResponseEntity.notFound().build();
-
         T existingModel = model.get();
         existingModel.mergeWith(t);
 
